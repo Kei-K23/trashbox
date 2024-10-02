@@ -12,7 +12,7 @@ func MoveToTrash(path string) error {
 		return nil
 	case "darwin":
 		// Handle for Mac OS
-		return nil
+		return moveToTrashMacOS(path)
 	case "linux":
 		// Handle for Linux
 		return nil
