@@ -1,6 +1,10 @@
 //go:build windows
 // +build windows
 
+/*
+Copyright © 2024 Kei-K23 <arkar.dev.kei@gmail.com>
+*/
+
 package trashbox
 
 import (
@@ -42,7 +46,37 @@ func shFileOperation(op *SHFILEOPSTRUCT) error {
 	return nil
 }
 
-func MoveToTrashWindows(path string) error {
+// MoveToTrash moves the specified file or directory to the Windows Recycle Bin.
+//
+// This function takes the path of a file or directory as an argument,
+// converts it to an absolute path, and then moves it to the Windows
+// Recycle Bin using the Shell API. If the provided path does not
+// exist or cannot be accessed, an error will be returned.
+//
+// The function uses the SHFileOperationW function from the Windows
+// Shell API to perform the move operation. It sets the appropriate
+// flags to allow undo and suppress confirmation dialogs. If the
+// operation is successful, the file or directory will no longer exist
+// at the original path and will be relocated to the Recycle Bin for
+// potential recovery.
+//
+// Parameters:
+//   - path: The path of the file or directory to be moved to the
+//     Recycle Bin.
+//
+// Returns:
+//   - error: Returns nil on success. If an error occurs during the
+//     process (e.g., if the file does not exist or the move fails),
+//     an error will be returned explaining the reason for failure,
+//     including any relevant error codes from the Windows API.
+//
+// Example:
+//
+//	err := MoveToTrash("C:\\path\\to\\your\\file.txt")
+//	if err != nil {
+//	    log.Fatalf("Failed to move to Recycle Bin: %v", err)
+//	}
+func MoveToTrash(path string) error {
 	// Get the absolute file path of delete file
 	absPath, err := filepath.Abs(path)
 	if err != nil {
