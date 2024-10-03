@@ -42,7 +42,7 @@ func shFileOperation(op *SHFILEOPSTRUCT) error {
 	return nil
 }
 
-func moveToTrashWindows(path string) error {
+func MoveToTrashWindows(path string) error {
 	// Get the absolute file path of delete file
 	absPath, err := filepath.Abs(path)
 	if err != nil {

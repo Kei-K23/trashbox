@@ -9,7 +9,7 @@ import (
 	"path/filepath"
 )
 
-func moveToTrashLinux(path string) error {
+func MoveToTrashLinux(path string) error {
 	absPath, err := filepath.Abs(path)
 	if err != nil {
 		return err

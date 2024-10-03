@@ -5,14 +5,14 @@ package trashbox
 
 import "errors"
 
-func moveToTrashWindows(path string) error {
+func MoveToTrashWindows(path string) error {
 	return errors.New("move to trash is not supported on this platform")
 }
 
-func moveToTrashMacOS(path string) error {
+func MoveToTrashMacOS(path string) error {
 	return errors.New("move to trash is not supported on this platform")
 }
 
-func moveToTrashLinux(path string) error {
+func MoveToTrashLinux(path string) error {
 	return errors.New("move to trash is not supported on this platform")
 }

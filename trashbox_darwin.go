@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 )
 
-func moveToTrashMacOS(path string) error {
+func MoveToTrashMacOS(path string) error {
 	// Get the absolute file path of delete file
 	absPath, err := filepath.Abs(path)
 	if err != nil {
