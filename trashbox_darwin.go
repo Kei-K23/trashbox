@@ -9,7 +9,7 @@ import (
 )
 
 func moveToTrashMacOS(path string) error {
-	// Get the absolute file path
+	// Get the absolute file path of delete file
 	absPath, err := filepath.Abs(path)
 	if err != nil {
 		return err
