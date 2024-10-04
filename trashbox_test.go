@@ -14,7 +14,7 @@ import (
 )
 
 func TestMoveToTrash(t *testing.T) {
-	testFile, err := os.CreateTemp("", "this_is_test_trash_new")
+	testFile, err := os.CreateTemp("", "this_is_test_trash_new_for_recovery")
 	if err != nil {
 		t.Fatalf("unable to create temp file: %v", err)
 	}
