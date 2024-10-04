@@ -1,5 +1,7 @@
 # Trashbox 🗑️
 
+[![Go Test](https://github.com/Kei-K23/trashbox/actions/workflows/test.yml/badge.svg)](https://github.com/Kei-K23/trashbox/actions/workflows/test.yml)
+
 **Trashbox** 🗑️ is a small, fast and cross-platform **Go** utility package for dealing with OS native `Trash Box` or `Recycle Bin` according to user OS. Include clean set of APIs for move file or directory to `Trash Box`, recovery and put back them to their original place and much more.
 
 ⚠️❗️
