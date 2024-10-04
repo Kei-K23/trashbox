@@ -79,3 +79,38 @@ func MoveToTrash(path string) error {
 	// Process is success and return nill
 	return nil
 }
+
+func PutBackFromTrash(path string) error {
+	// Get the Trash box path and metadata path
+	trashPath := filepath.Join(os.Getenv("HOME"), ".Trash", path)
+	metadataPath := trashPath + ".metadata.json"
+
+	// Open metadata file to get original file path
+	metadataFile, err := os.Open(metadataPath)
+	if err != nil {
+		return err
+	}
+	defer metadataFile.Close()
+
+	var metadata Metadata
+	decoder := json.NewDecoder(metadataFile)
+	err = decoder.Decode(&metadata)
+	if err != nil {
+		return err
+	}
+
+	// Put back file to original path
+	err = os.Rename(trashPath, metadata.OriginalPath)
+	if err != nil {
+		return err
+	}
+
+	// Remove the metadata file
+	err = os.Remove(metadataPath)
+	if err != nil {
+		return err
+	}
+
+	// Process is success and return nill
+	return nil
+}
