@@ -14,14 +14,31 @@ import (
 )
 
 func TestMoveToTrash(t *testing.T) {
-	testFile, err := os.CreateTemp("", "this_is_test_trash_new_for_recovery")
+	testFile, err := os.CreateTemp("", "this_is_test_trash_new_for")
 	if err != nil {
 		t.Fatalf("unable to create temp file: %v", err)
 	}
 	defer os.Remove(testFile.Name())
 	err = MoveToTrash(testFile.Name())
-	// err = MoveToTrash(testFile.Name())
 	if err != nil {
 		t.Fatalf("failed to move file to trash: %v", err)
 	}
 }
+
+// func TestPutBackFromTrash(t *testing.T) {
+// 	testFile, err := os.CreateTemp("", "this_is_test_trash_new_for_recovery")
+// 	if err != nil {
+// 		t.Fatalf("unable to create temp file: %v", err)
+// 	}
+// 	defer os.Remove(testFile.Name())
+// 	err = MoveToTrash(testFile.Name())
+
+// 	if err != nil {
+// 		t.Fatalf("failed to move file to trash: %v", err)
+// 	}
+
+// 	err = PutBackFromTrash(testFile.Name())
+// 	if err != nil {
+// 		t.Fatalf("failed to put back file from trash: %v", err)
+// 	}
+// }
