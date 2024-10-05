@@ -8,10 +8,15 @@ Copyright © 2024 Kei-K23 <arkar.dev.kei@gmail.com>
 package trashbox
 
 import (
+	"encoding/json"
 	"errors"
 	"os"
 	"path/filepath"
 )
+
+type metadata struct {
+	OriginalPath string `json:"original_path"`
+}
 
 // MoveToTrash moves the specified file or directory to the Linux Trash.
 //
@@ -55,5 +60,28 @@ func MoveToTrash(path string) error {
 
 	trashPath := filepath.Join(trashDir, filepath.Base(absPath))
 	// Move the file to trash directory
-	return os.Rename(absPath, trashPath)
+	err = os.Rename(absPath, trashPath)
+	if err != nil {
+		return err
+	}
+
+	// Create metadata file for recovery the deleted file
+	metadata := metadata{OriginalPath: absPath}
+	metadataPath := trashPath + ".metadata.json"
+
+	// Create metadata file in Trash bin
+	metadataFile, err := os.Create(metadataPath)
+	if err != nil {
+		return err
+	}
+	defer metadataFile.Close()
+
+	encoder := json.NewEncoder(metadataFile)
+	err = encoder.Encode(metadata)
+	if err != nil {
+		return err
+	}
+
+	// Process is success and return nill
+	return nil
 }
