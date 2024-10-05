@@ -228,3 +228,26 @@ func listTrashUsingAppleScript() ([]string, error) {
 
 	return files, nil
 }
+
+func DeletePermanently(path string) error {
+	trashPath := filepath.Join(trashDir, path)
+	metadataPath := trashPath + trashboxMetadataExt
+
+	if _, err := os.Stat(trashPath); os.ErrNotExist == err {
+		return fmt.Errorf("file not found to delete permanently")
+	}
+
+	// Remove actual file
+	err := os.Remove(trashPath)
+	if err != nil {
+		return err
+	}
+
+	// Remove metadata file
+	err = os.Remove(metadataPath)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}

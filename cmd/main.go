@@ -11,28 +11,30 @@ func main() {
 	// if err != nil {
 	// 	fmt.Printf("%v\n", err)
 	// }
+	// time.Sleep(time.Second * 1)
+	// err = trashbox.MoveToTrash("test1.txt")
+	// if err != nil {
+	// 	fmt.Printf("%v\n", err)
+	// }
 
 	files, err := trashbox.ListTrash()
 	if err != nil {
-		fmt.Printf("%v\n", err)
+		fmt.Println("HERE")
 	}
 
-	for _, file := range files {
-		fmt.Printf("%s %d %s", file.OriginalPath, file.Size, file.DeletedAt.String())
+	for _, v := range files {
+		fmt.Printf("%s %d\n", v.OriginalPath, v.Size)
 	}
-
-	err = trashbox.PutBackFromTrash("test.txt")
-	if err != nil {
-		fmt.Printf("%v\n", err)
-	}
+	// trashbox.PutBackFromTrash("test.txt")
+	// trashbox.PutBackFromTrash("test1.txt")
+	trashbox.DeletePermanently("test.txt")
 
 	files, err = trashbox.ListTrash()
 	if err != nil {
-		fmt.Printf("%v\n", err)
+		fmt.Println("HERE")
 	}
 
-	for _, file := range files {
-		fmt.Printf("%s %d %s", file.OriginalPath, file.Size, file.DeletedAt.String())
+	for _, v := range files {
+		fmt.Printf("%s %d\n", v.OriginalPath, v.Size)
 	}
-
 }
