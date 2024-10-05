@@ -11,11 +11,16 @@ import (
 	"encoding/json"
 	"os"
 	"path/filepath"
+	"time"
 )
 
 type metadata struct {
-	OriginalPath string `json:"original_path"`
+	OriginalPath string    `json:"original_path"`
+	DeletedAt    time.Time `json:"deleted_at"`
+	Size         int       `json:"size"`
 }
+
+var trashDir = filepath.Join(os.Getenv("HOME"), ".Trash")
 
 // MoveToTrash moves the specified file or directory to the system's Trash directory.
 // This function generates a metadata file in the Trash for potential recovery.
@@ -49,7 +54,7 @@ func MoveToTrash(path string) error {
 	}
 
 	// Get the trash file path to move to .Trash directory
-	trashPath := filepath.Join(os.Getenv("HOME"), ".Trash", filepath.Base(path))
+	trashPath := filepath.Join(trashDir, filepath.Base(path))
 	// Move the file to .Trash directory
 	err = os.Rename(absPath, trashPath)
 	if err != nil {
@@ -102,7 +107,7 @@ func MoveToTrash(path string) error {
 //   - On success, the metadata file is removed from the Trash.
 func PutBackFromTrash(path string) error {
 	// Get the Trash box path and metadata path
-	trashPath := filepath.Join(os.Getenv("HOME"), ".Trash", path)
+	trashPath := filepath.Join(trashDir, path)
 	metadataPath := trashPath + ".metadata.json"
 
 	// Open metadata file to get original file path
